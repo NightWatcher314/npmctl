@@ -8,6 +8,8 @@
 
 它重点覆盖安全的 Proxy Host 工作流：创建和更新代理时不覆盖未指定字段，匹配现有证书，管理原始 `advanced_config` 片段，以及配置 custom locations。
 
+`npmctl` 的实现原理是向 Nginx Proxy Manager 的 REST API 发送请求。当前已在 Nginx Proxy Manager `2.14.0` 上测试通过；不保证兼容其他 Nginx Proxy Manager 版本。
+
 ## AI-Native Skill
 
 内置的 `nginx-proxy-manager` skill 会指导 agent 把 `npmctl` 作为 Nginx Proxy Manager 变更的稳定执行器。

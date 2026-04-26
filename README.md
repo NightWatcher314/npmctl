@@ -8,6 +8,8 @@
 
 It focuses on safe Proxy Host workflows: creating and updating hosts without clobbering unspecified fields, matching existing certificates, managing raw `advanced_config` snippets, and configuring custom locations.
 
+`npmctl` talks to Nginx Proxy Manager by sending requests to its REST API. It has been tested against Nginx Proxy Manager `2.14.0`; compatibility with other Nginx Proxy Manager versions is not guaranteed.
+
 ## AI-Native Skill
 
 The included `nginx-proxy-manager` skill teaches agents to use `npmctl` as the stable executor for Nginx Proxy Manager changes.
