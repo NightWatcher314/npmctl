@@ -1,8 +1,24 @@
 # npmctl
 
+[English](README.md) | [中文](README-zh.md)
+
 `npmctl` is a Python CLI for automating [Nginx Proxy Manager](https://nginxproxymanager.com/) through its API.
 
+`npmctl` is built as an AI-native operations tool. The repository includes a Codex skill at [`skills/nginx-proxy-manager/SKILL.md`](skills/nginx-proxy-manager/SKILL.md), so an AI agent can manage Nginx Proxy Manager with explicit safety rules, command shapes, and verification steps instead of guessing raw API calls.
+
 It focuses on safe Proxy Host workflows: creating and updating hosts without clobbering unspecified fields, matching existing certificates, managing raw `advanced_config` snippets, and configuring custom locations.
+
+## AI-Native Skill
+
+The included `nginx-proxy-manager` skill teaches agents to use `npmctl` as the stable executor for Nginx Proxy Manager changes.
+
+Key rules encoded in the skill:
+
+- Never put URL paths in `forward_host`; targets are origin URLs like `http://host:port`.
+- Use host-level `advanced_config` for host snippets and location-level `advanced_config` for custom location snippets.
+- Preserve unspecified fields, existing snippets, and existing locations during updates.
+- Verify mutations with `npmctl proxy get DOMAIN -o json`, and use `npmctl proxy test DOMAIN` for public hosts.
+- Require explicit user intent for destructive actions such as delete, clearing snippets, or removing locations.
 
 ## Install
 
