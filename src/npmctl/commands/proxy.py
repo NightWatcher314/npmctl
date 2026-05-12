@@ -8,6 +8,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from npmctl.command_help import print_help_if_no_subcommand
 from npmctl.client import resolve_proxy
 from npmctl.context import make_client
 from npmctl.output import dump
@@ -21,6 +22,26 @@ app.add_typer(advanced_app, name="advanced")
 app.add_typer(location_app, name="location")
 location_app.add_typer(location_advanced_app, name="advanced")
 console = Console()
+
+
+@app.callback(invoke_without_command=True)
+def proxy_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
+
+
+@advanced_app.callback(invoke_without_command=True)
+def advanced_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
+
+
+@location_app.callback(invoke_without_command=True)
+def location_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
+
+
+@location_advanced_app.callback(invoke_without_command=True)
+def location_advanced_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
 
 
 def read_snippet(value: str | None, file: Path | None, stdin_flag: bool, clear: bool = False) -> str | None:

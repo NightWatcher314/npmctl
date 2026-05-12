@@ -7,12 +7,18 @@ import sys
 import typer
 from rich.console import Console
 
+from npmctl.command_help import print_help_if_no_subcommand
 from npmctl.client import NpmClient
 from npmctl.config import Config, normalize_base_url
 from npmctl.context import make_client
 
 app = typer.Typer(help="Authenticate to Nginx Proxy Manager")
 console = Console()
+
+
+@app.callback(invoke_without_command=True)
+def auth_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
 
 
 @app.command("login")

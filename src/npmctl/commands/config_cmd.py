@@ -4,12 +4,23 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from npmctl.command_help import print_help_if_no_subcommand
 from npmctl.config import Config, config_path, normalize_base_url
 
 app = typer.Typer(help="Manage local npmctl configuration")
 profile_app = typer.Typer(help="Manage NPM instance profiles")
 app.add_typer(profile_app, name="profile")
 console = Console()
+
+
+@app.callback(invoke_without_command=True)
+def config_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
+
+
+@profile_app.callback(invoke_without_command=True)
+def profile_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
 
 
 @app.command("set-url")

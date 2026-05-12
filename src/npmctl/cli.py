@@ -6,6 +6,7 @@ import typer
 from rich.console import Console
 
 from npmctl import __version__
+from npmctl.command_help import print_help_if_no_subcommand
 from npmctl.commands import auth, cert, config_cmd, proxy
 from npmctl.context import make_client
 from npmctl.errors import NpmctlError
@@ -16,6 +17,11 @@ app.add_typer(auth.app, name="auth")
 app.add_typer(cert.app, name="cert")
 app.add_typer(proxy.app, name="proxy")
 console = Console(stderr=True)
+
+
+@app.callback(invoke_without_command=True)
+def cli_callback(ctx: typer.Context):
+    print_help_if_no_subcommand(ctx)
 
 
 @app.command()
